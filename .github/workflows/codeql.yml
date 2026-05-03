@@ -44,8 +44,8 @@ jobs:
           # - languages: python
           #   build-mode: none
 
-          # - languages: ruby
-          #   build-mode: none
+          - languages: ruby
+            build-mode: none
 
           # - languages: rust
           #   build-mode: none
