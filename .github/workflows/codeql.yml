@@ -41,8 +41,8 @@ jobs:
           # - languages: javascript-typescript
           #   build-mode: none
 
-          - languages: python
-            build-mode: none
+          # - languages: python
+          #   build-mode: none
 
           # - languages: ruby
           #   build-mode: none
