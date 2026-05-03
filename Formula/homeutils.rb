@@ -12,4 +12,8 @@ class Homeutils < Formula
   def install
     (prefix/"etc/profile.d/999-homeutils.sh").write("HOME_UTILS_VERSION='#{version}'\n")
   end
+
+  test do
+    assert_match "#{version}\n", shell_output("zsh -c '. #{prefix}/etc/profile.d/999-homeutils.sh && echo \"$HOME_UTILS_VERSION\"'")
+  end
 end
