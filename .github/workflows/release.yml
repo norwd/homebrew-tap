@@ -1,0 +1,128 @@
+---
+
+name: "Release"
+run-name: "Release"
+
+permissions:
+  actions: read
+  artifact-metadata: write
+  attestations: write
+  checks: read
+  contents: write
+  deployments: write
+  discussions: write
+  models: none
+  packages: write
+  pages: none
+
+on:
+  workflow_dispatch:
+    inputs:
+      version_change:
+        description: 'Which version component should be incremented?'
+        required: true
+        type: choice
+        default: patch
+        options:
+          - major
+          - minor
+          - patch
+
+concurrency:
+  group: ${{ github.workflow_ref }}
+  cancel-in-progress: true
+
+env:
+  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+jobs:
+  release:
+    name: "Release"
+    runs-on: ubuntu-latest
+    steps:
+
+      - id: version
+        name: "Get Last Release"
+        run: gh release view --json tagName --jq "${JQ_QUERY}" | tee -a "${GITHUB_OUTPUT}"
+        env:
+          ENDPOINT: /repos/${{ github.repository }}/releases
+          JQ_QUERY: |
+            (
+              # Capture the current published version
+              [
+                .[]
+                | select(.draft | not)
+                | select(.prereleased | not)
+                | .tag_name
+                | gsub("[^.0-9]+"; "") | split(".")
+                | {
+                  major: (try (.[0] | tonumber) catch 0),
+                  minor: (try (.[1] | tonumber) catch 0),
+                  patch: (try (.[2] | tonumber) catch 0),
+                }
+              ] | max_by(.major, .minor, .patch) as $latest_published_version
+
+              # Construct GHA Outputs
+              | "latest_published_version=\($latest_published_version.major).\($latest_published_version.minor).\($latest_published_version.patch)"
+            )
+
+            , # Separate queries
+
+            (
+              # Capture the current latest version
+              [
+                .[]
+                | select(.draft | not)
+                | select(.prereleased | not)
+                | .tag_name
+                | gsub("[^.0-9]+"; "") | split(".")
+                | {
+                  major: (try (.[0] | tonumber) catch 0),
+                  minor: (try (.[1] | tonumber) catch 0),
+                  patch: (try (.[2] | tonumber) catch 0),
+                }
+              ] | max_by(.major, .minor, .patch) as $latest_version
+
+              # Determine what the next major version would be
+              | {
+                major: ($latest_version.major + 1),
+                minor: 0,
+                patch: 0,
+              } as $next_major_version
+
+              # Determine what the next minor version would be
+              | {
+                major: $latest_version.major,
+                minor: ($latest_version.minor + 1),
+                patch: 0,
+              } as $next_minor_version
+
+              # Determine what the next patch version would be
+              | {
+                major: $latest_version.major,
+                minor: $latest_version.minor,
+                patch: ($latest_version.patch + 1),
+              } as $next_patch_version
+
+              # Construct GHA Outputs
+              | [
+                # Break down of latest release by version component
+                "latest_major_number=\($latest_version.major)",
+                "latest_minor_number=\($latest_version.minor)",
+                "latest_patch_number=\($latest_version.patch)",
+
+                # Latest version as a full version string
+                "latest_version=\($latest_version.major).\($latest_version.minor).\($latest_version.patch)",
+
+                # Possible next versions, depending on which version component is updated
+                "next_major_version=\($next_major_version.major).\($next_major_version.minor).\($next_major_version.patch)",
+                "next_minor_version=\($next_minor_version.major).\($next_minor_version.minor).\($next_minor_version.patch)",
+                "next_patch_version=\($next_patch_version.major).\($next_patch_version.minor).\($next_patch_version.patch)"
+              ][]
+            )
+
+      - name: "Release"
+        run: gh --repo "${GITHUB_REPOSITORY}" release create "${TAG_NAME}" --generate-notes --prerelease --target "${GITHUB_SHA}" --notes-start-tag "${PREV_TAG}"
+        env:
+          PREV_TAG: ${{ steps.version.outputs.latest_published_version }}
+          TAG_NAME: ${{ steps.version.outputs[format('next_{0}_version', inputs.version_change || 'patch')] }}
