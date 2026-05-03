@@ -10,6 +10,6 @@ class Homeutils < Formula
   depends_on "ugrep" # grep(1)
 
   def install
-    system "echo", "install"
+    (prefix/"etc/profile.d/999-homeutils.sh").write("HOME_UTILS_VERSION='#{version}'\n")
   end
 end
