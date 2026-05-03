@@ -43,7 +43,7 @@ jobs:
 
       - id: version
         name: "Get Last Release"
-        run: gh release view --json tagName --jq "${JQ_QUERY}" | tee -a "${GITHUB_OUTPUT}"
+        run: gh api "${ENDPOINT}" --jq "${JQ_QUERY}" | tee -a "${GITHUB_OUTPUT}"
         env:
           ENDPOINT: /repos/${{ github.repository }}/releases
           JQ_QUERY: |
