@@ -7,6 +7,9 @@ class Homeutils < Formula
 
   depends_on "bat" # cat(1)
   depends_on "btop" # top(1) / htop(1)
-  depends_on "git" # git(1), obviously
   depends_on "ugrep" # grep(1)
+
+  def install
+    system "echo", "install"
+  end
 end
