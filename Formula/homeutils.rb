@@ -14,6 +14,6 @@ class Homeutils < Formula
   end
 
   test do
-    assert_match "#{version}\n", shell_output("zsh -c '. #{prefix}/etc/profile.d/999-homeutils.sh && echo \"$HOME_UTILS_VERSION\"'")
+    assert_match "#{version}\n", shell_output("sh -c '. #{prefix}/etc/profile.d/999-homeutils.sh && echo \"$HOME_UTILS_VERSION\"'")
   end
 end
