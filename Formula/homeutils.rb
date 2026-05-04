@@ -9,6 +9,7 @@ class Homeutils < Formula
   depends_on "bfs" # find(1)
   depends_on "btop" # top(1) / htop(1)
   depends_on "hexyl" # hd(1) / hexdump(1)
+  depends_on "eth-p/software/bat-extras-batman" # man(1)
   depends_on "ugrep" # grep(1)
 
   def install
