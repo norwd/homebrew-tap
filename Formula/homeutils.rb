@@ -8,6 +8,7 @@ class Homeutils < Formula
   depends_on "bat" # cat(1)
   depends_on "btop" # top(1) / htop(1)
   depends_on "ugrep" # grep(1)
+  depends_on "eth-p/software/bat-extras-batman" # man(1)
 
   def install
     (prefix/"etc/profile.d/999-homeutils.sh").write("HOME_UTILS_VERSION='#{version}'\n")
