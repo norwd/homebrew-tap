@@ -26,7 +26,7 @@ class Trufflehog < Formula
 
     generate_completions_from_executable(bin/"trufflehog",
                                          shell_parameter_format: "--completion-script-",
-                                         shells:                 [ :bash, :zsh ])
+                                         shells:                 [:bash, :zsh])
   end
 
   test do
