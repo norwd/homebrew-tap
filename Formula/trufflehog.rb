@@ -18,6 +18,8 @@ class Trufflehog < Formula
   end
 
   depends_on "go" => :build
+  depends_on "bash" => :test
+  depends_on "zsh" => :test
 
   def install
     ldflags = "-s -w -X github.com/trufflesecurity/trufflehog/v3/pkg/version.BuildVersion=#{version}"
