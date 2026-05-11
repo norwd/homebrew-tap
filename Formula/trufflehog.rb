@@ -24,7 +24,8 @@ class Trufflehog < Formula
     system "go", "build", *std_go_args(ldflags:)
     man1.install "docs/man/trufflehog.1"
 
-    generate_completions_from_executable(bin/"trufflehog", shell_parameter_format: "--completion-script-", shells: [:bash, :zsh])
+    generate_completions_from_executable(bin/"trufflehog", shell_parameter_format: "--completion-script-",
+                                         shells: [:bash, :zsh])
   end
 
   test do
