@@ -25,7 +25,7 @@ class Trufflehog < Formula
     man1.install "docs/man/trufflehog.1"
 
     generate_completions_from_executable(bin/"trufflehog", shell_parameter_format: "--completion-script-",
-                                         shells: [:bash, :zsh])
+                                     shells: [:bash, :zsh])
   end
 
   test do
