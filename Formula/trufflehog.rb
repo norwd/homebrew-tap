@@ -18,6 +18,8 @@ class Trufflehog < Formula
   end
 
   depends_on "go" => :build
+  depends_on "bash" => :test
+  depends_on "zsh" => :test
 
   def install
     ldflags = "-s -w -X github.com/trufflesecurity/trufflehog/v3/pkg/version.BuildVersion=#{version}"
@@ -36,5 +38,13 @@ class Trufflehog < Formula
     assert_match expected, output
 
     assert_match version.to_s, shell_output("#{bin}/trufflehog --version 2>&1")
+
+    bash_completion_command = "bash -c 'source #{bash_completion}/trufflehog && complete -p trufflehog'"
+    bash_completion_output = shell_output(bash_completion_command)
+    assert_match(/-F _trufflehog_bash_autocomplete/, bash_completion_output)
+
+    zsh_completion_command = "zsh -c 'fpath=(#{zsh_completion} $fpath); autoload _trufflehog; which _trufflehog'"
+    zsh_completion_output = shell_output(zsh_completion_command)
+    assert_match(/^_trufflehog \(\) \{/, zsh_completion_output)
   end
 end
