@@ -40,9 +40,9 @@ class Trufflehog < Formula
     assert_match version.to_s, shell_output("#{bin}/trufflehog --version 2>&1")
 
     bash_completion_output = shell_output("bash -c 'source #{bash_completion}/trufflehog && complete -p trufflehog'")
-    assert_match /^_trufflehog_bash_autocomplete \(\) \{/, bash_completion_output
+    assert_match(/^_trufflehog_bash_autocomplete \(\) \{/, bash_completion_output)
 
-    assert_match(/^_trufflehog \(\) \{/,
-      shell_output("zsh -c 'fpath=(#{zsh_completion} $fpath); autoload _trufflehog; which _trufflehog'"))
+    zsh_completion_output = shell_output("zsh -c 'fpath=(#{zsh_completion} $fpath); autoload _trufflehog; which _trufflehog'")
+    assert_match(/^_trufflehog \(\) \{/, zsh_completion_output)
   end
 end
