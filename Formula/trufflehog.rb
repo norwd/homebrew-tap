@@ -41,7 +41,7 @@ class Trufflehog < Formula
 
     bash_completion_command = "bash -c 'source #{bash_completion}/trufflehog && complete -p trufflehog'"
     bash_completion_output = shell_output(bash_completion_command)
-    assert_match(/^_trufflehog_bash_autocomplete \(\) \{/, bash_completion_output)
+    assert_match(/-F _trufflehog_bash_autocomplete/, bash_completion_output)
 
     zsh_completion_command = "zsh -c 'fpath=(#{zsh_completion} $fpath); autoload _trufflehog; which _trufflehog'"
     zsh_completion_output = shell_output(zsh_completion_command)
