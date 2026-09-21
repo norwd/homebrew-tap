@@ -3,9 +3,9 @@ class Evi < Formula
   homepage "https://evi-editor.codeberg.page"
   url "https://codeberg.org/norwd-forks/evi/archive/v10.0.0-homebrew.20260922101417.tar.gz"
   sha256 "b3d3af622035ccd0a496ec7426c4c0ac407ef5214d43f27a4ea6f0d0668adc79"
-  license "Vim"
+  license "GPL-3.0-or-later"
   compatibility_version 1
-  head "ssh://git@codeberg.org/norwd-forks/evi.git", branch: "master"
+  head "https://codeberg.org/norwd-forks/evi.git", branch: "master"
 
   livecheck do
     url :stable
