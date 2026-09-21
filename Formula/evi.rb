@@ -55,16 +55,16 @@ class Evi < Formula
                           "--mandir=#{man}",
                           "--enable-multibyte",
                           "--with-tlib=ncurses",
-                          "--with-compiledby=Homebrew",
                           "--enable-cscope",
                           "--enable-terminal",
-                          "--enable-perlinterp#{"=dynamic" unless OS.mac?}",
-                          "--enable-python3interp=dynamic",
-                          "--enable-rubyinterp=dynamic",
+                          # "--enable-perlinterp#{"=dynamic" unless OS.mac?}",
+                          # "--enable-python3interp=dynamic",
+                          # "--enable-rubyinterp=dynamic",
                           "--disable-gui",
                           "--without-x",
-                          "--enable-luainterp=dynamic",
-                          "--with-lua-prefix=#{formula_opt_prefix("lua")}"
+                          # "--enable-luainterp=dynamic",
+                          # "--with-lua-prefix=#{formula_opt_prefix("lua")}",
+                          "--with-compiledby=Homebrew"
     system "make"
     # Parallel install could miss some symlinks
     # https://github.com/vim/vim/issues/1031 (predates forking, still applies to EVi)
