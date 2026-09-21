@@ -7,9 +7,11 @@ class Evi < Formula
   compatibility_version 1
   head "https://codeberg.org/norwd-forks/evi.git", branch: "master"
 
+  # https://github.com/Homebrew/homebrew-core/blob/15b51c58a36b67c4a20f95b599f1ab2a58eb6e29/Formula/v/vim.rb#L10-L17
   livecheck do
-    url :stable
-    regex(/^v?(\d+(?:\.\d+)+)$/i)
+    url "https://codeberg.org/norwd-forks/evi/tags"
+    regex(%r{href=["']?[^"' >]*?/tag/v?(\d+(?:\.\d+)+)["' >]}i)
+    strategy :page_match
   end
 
   depends_on "gettext" => :build
