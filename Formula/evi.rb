@@ -62,8 +62,8 @@ class Evi < Formula
                           # "--enable-rubyinterp=dynamic",
                           "--disable-gui",
                           "--without-x",
-                          # "--enable-luainterp=dynamic",
-                          # "--with-lua-prefix=#{formula_opt_prefix("lua")}",
+                          "--enable-luainterp=dynamic",
+                          "--with-lua-prefix=#{formula_opt_prefix("lua")}",
                           "--with-compiledby=Homebrew"
     system "make"
     # Parallel install could miss some symlinks
