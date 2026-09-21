@@ -1,4 +1,4 @@
-class EVi < Formula
+class Evi < Formula
   desc "Vi 'workalike' with many additional features"
   homepage "https://evi-editor.codeberg.page"
   url "https://codeberg.org/norwd-forks/evi/archive/v10.0.0-homebrew.20260922101417.tar.gz"
