@@ -10,7 +10,7 @@ class Evi < Formula
   livecheck do
     url "https://codeberg.org/api/v1/repos/norwd-forks/evi/tags"
     strategy :json do |json|
-        json.dig(0, "name")
+      json.dig(0, "name")
     end
   end
 
