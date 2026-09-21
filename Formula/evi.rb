@@ -11,6 +11,7 @@ class Evi < Formula
     url "https://codeberg.org/api/v1/repos/norwd-forks/evi/tags"
     strategy :json do |json|
         json.dig(0, "name")
+    end
   end
 
   depends_on "gettext" => :build
