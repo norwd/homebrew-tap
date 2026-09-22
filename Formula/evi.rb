@@ -58,7 +58,7 @@ class Evi < Formula
                           "--enable-cscope",
                           "--enable-terminal",
                           "--enable-perlinterp#{"=dynamic" unless OS.mac?}",
-                          # "--enable-python3interp=dynamic",
+                          "--enable-python3interp=dynamic",
                           "--enable-rubyinterp=dynamic",
                           "--disable-gui",
                           "--without-x",
