@@ -8,9 +8,10 @@ class Evi < Formula
   head "https://codeberg.org/norwd-forks/evi.git", branch: "master"
 
   livecheck do
-    url "https://codeberg.org/api/v1/repos/norwd-forks/evi/tags"
+    url "https://codeberg.org/api/v1/repos/norwd-forks/evi/releases/latest"
+    regex(/^v?(\d+(?:\.\d+)+)$/i)
     strategy :json do |json|
-      json.dig(0, "name")
+      json["tag_name"]&.[](regex, 1)
     end
   end
 
