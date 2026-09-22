@@ -16,8 +16,8 @@ class Evi < Formula
   end
 
   depends_on "acl"
-  depends_on "gettext"
   depends_on "lua" => [:build, :test]
+  depends_on "gettext"
   # depe___nds_on "python@3.14" => [:build, :test]
   # depe___nds_on "ruby@3.2" => [:build, :test]
   depends_on "libsodium"
