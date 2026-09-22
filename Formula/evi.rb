@@ -1,35 +1,30 @@
 class Evi < Formula
   desc "Vi 'workalike' with many additional features"
   homepage "https://evi-editor.codeberg.page"
-  url "https://codeberg.org/norwd-forks/evi/archive/v10.0.0-homebrew.20260922101417.tar.gz"
-  sha256 "b3d3af622035ccd0a496ec7426c4c0ac407ef5214d43f27a4ea6f0d0668adc79"
+  url "https://codeberg.org/norwd-forks/evi/archive/v10.0.0.tar.gz"
+  sha256 "a5d4c10b29d1f933d8d2f889fca25334372a231be8612add872ecc8ac017b578"
   license "GPL-3.0-or-later"
+  version_scheme 1
   compatibility_version 1
   head "https://codeberg.org/norwd-forks/evi.git", branch: "master"
 
   livecheck do
-    url "https://codeberg.org/api/v1/repos/norwd-forks/evi/tags"
+    url "https://codeberg.org/api/v1/repos/norwd-forks/evi/releases/latest"
+    regex(/^v?(\d+(?:\.\d+)+)$/i)
     strategy :json do |json|
-      json.dig(0, "name")
+      json["tag_name"]&.[](regex, 1)
     end
   end
 
-  depends_on "gettext" => :build
   depends_on "lua" => [:build, :test]
-  depends_on "python@3.14" => [:build, :test]
-  depends_on "ruby@3.2" => [:build, :test]
+  # depe___nds_on "python@3.14" => [:build, :test]
+  # depe___nds_on "ruby@3.2" => [:build, :test]
+  depends_on "acl"
+  depends_on "gettext"
   depends_on "libsodium"
   depends_on "ncurses"
 
   uses_from_macos "perl" => [:build, :test]
-
-  on_macos do
-    depends_on "gettext"
-  end
-
-  on_linux do
-    depends_on "acl"
-  end
 
   conflicts_with "ex-vi", because: "EVi and ex-vi both install ex, vi, and view binaries"
   conflicts_with "macvim", because: "EVi and macvim both install ex, vi, and view binaries"
@@ -58,8 +53,8 @@ class Evi < Formula
                           "--enable-cscope",
                           "--enable-terminal",
                           "--enable-perlinterp#{"=dynamic" unless OS.mac?}",
-                          "--enable-python3interp=dynamic",
-                          "--enable-rubyinterp=dynamic",
+                          # "--enable-python3interp=dynamic",
+                          # "--enable-rubyinterp=dynamic",
                           "--disable-gui",
                           "--without-x",
                           "--enable-luainterp=dynamic",
