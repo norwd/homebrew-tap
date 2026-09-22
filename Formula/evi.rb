@@ -16,8 +16,8 @@ class Evi < Formula
 
   depends_on "gettext" => :build
   depends_on "lua" => [:build, :test]
-  depends_on "python@3.14" => [:build, :test]
-  depends_on "ruby@3.2" => [:build, :test]
+  # depends_on "python@3.14" => [:build, :test]
+  # depends_on "ruby@3.2" => [:build, :test]
   depends_on "libsodium"
   depends_on "ncurses"
 
@@ -58,8 +58,8 @@ class Evi < Formula
                           "--enable-cscope",
                           "--enable-terminal",
                           "--enable-perlinterp#{"=dynamic" unless OS.mac?}",
-                          "--enable-python3interp=dynamic",
-                          "--enable-rubyinterp=dynamic",
+                          # "--enable-python3interp=dynamic",
+                          # "--enable-rubyinterp=dynamic",
                           "--disable-gui",
                           "--without-x",
                           "--enable-luainterp=dynamic",
