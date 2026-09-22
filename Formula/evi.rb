@@ -33,7 +33,7 @@ class Evi < Formula
   def extra_deps = deps.select { |dep| dep.build? && dep.test? }
 
   def install
-    ENV.prepend_path "PATH", formula_opt_libexec("python@3.14")/"bin"
+    ENV.prepend_path "PATH", formula_opt_libexec("python@3.12")/"bin"
 
     # Allow dynamically loading formulae libraries when not linked
     extra_deps.each do |dep|
