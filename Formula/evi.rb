@@ -4,8 +4,8 @@ class Evi < Formula
   url "https://codeberg.org/norwd-forks/evi/archive/v10.0.0.tar.gz"
   sha256 "a5d4c10b29d1f933d8d2f889fca25334372a231be8612add872ecc8ac017b578"
   license "GPL-3.0-or-later"
-  compatibility_version 1
   version_scheme 1
+  compatibility_version 1
   head "https://codeberg.org/norwd-forks/evi.git", branch: "master"
 
   livecheck do
@@ -16,11 +16,11 @@ class Evi < Formula
     end
   end
 
-  depends_on "acl"
   depends_on "lua" => [:build, :test]
-  depends_on "gettext"
   # depe___nds_on "python@3.14" => [:build, :test]
   # depe___nds_on "ruby@3.2" => [:build, :test]
+  depends_on "acl"
+  depends_on "gettext"
   depends_on "libsodium"
   depends_on "ncurses"
 
