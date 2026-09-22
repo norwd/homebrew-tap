@@ -5,6 +5,7 @@ class Evi < Formula
   sha256 "a5d4c10b29d1f933d8d2f889fca25334372a231be8612add872ecc8ac017b578"
   license "GPL-3.0-or-later"
   compatibility_version 1
+  version_scheme 1
   head "https://codeberg.org/norwd-forks/evi.git", branch: "master"
 
   livecheck do
