@@ -17,8 +17,8 @@ class Evi < Formula
   end
 
   depends_on "lua" => [:build, :test]
-  # depe___nds_on "python@3.14" => [:build, :test]
-  # depe___nds_on "ruby@3.2" => [:build, :test]
+  depends_on "python@3.12" => [:build, :test]
+  depends_on "ruby@3.2" => [:build, :test]
   depends_on "acl"
   depends_on "gettext"
   depends_on "libsodium"
@@ -33,7 +33,7 @@ class Evi < Formula
   def extra_deps = deps.select { |dep| dep.build? && dep.test? }
 
   def install
-    ENV.prepend_path "PATH", formula_opt_libexec("python@3.14")/"bin"
+    ENV.prepend_path "PATH", formula_opt_libexec("python@3.12")/"bin"
 
     # Allow dynamically loading formulae libraries when not linked
     extra_deps.each do |dep|
@@ -50,16 +50,16 @@ class Evi < Formula
                           "--mandir=#{man}",
                           "--enable-multibyte",
                           "--with-tlib=ncurses",
+                          "--with-compiledby=Homebrew",
                           "--enable-cscope",
                           "--enable-terminal",
-                          "--enable-perlinterp#{"=dynamic" unless OS.mac?}",
-                          # "--enable-python3interp=dynamic",
-                          # "--enable-rubyinterp=dynamic",
+                          "--enable-perlinterp",
+                          "--enable-rubyinterp",
+                          "--enable-python3interp",
                           "--disable-gui",
                           "--without-x",
-                          "--enable-luainterp=dynamic",
-                          "--with-lua-prefix=#{formula_opt_prefix("lua")}",
-                          "--with-compiledby=Homebrew" # Keep this last
+                          "--enable-luainterp",
+                          "--with-lua-prefix=#{formula_opt_prefix("lua")}"
     system "make"
     # Parallel install could miss some symlinks
     # https://github.com/vim/vim/issues/1031 (predates forking, still applies to EVi)
@@ -73,14 +73,15 @@ class Evi < Formula
   end
 
   test do
-    # (testpath/"commands.evi").write <<~EVI
-    #   :python3 import evi; evi.current.buffer[0] = 'hello python3'
-    #   :ruby EVi::Buffer.current.append(0, 'hello ruby')
-    #   :perl $curbuf->Append(0, "hello perl")
-    #   :lua EVi.buffer():insert("hello lua")
-    #   :wq
-    # EVI
-    # system bin/"evi", "-T", "dumb", "-s", "commands.evi", "test.txt"
+    (testpath/"commands.vim").write <<~VIMSCRIPT
+      :python3 import vim; vim.current.buffer[0] = 'hello python3'
+      :wq
+    VIMSCRIPT
+    #  :ruby Vim::Buffer.current.append(0, 'hello ruby')
+    #  :perl $curbuf->Append(0, "hello perl")
+    #  :lua Vim.buffer():insert("hello lua")
+    system bin/"evi", "-T", "dumb", "-s", "commands.vim", "test.txt"
+    assert_equal "hello python3", File.read("test.txt").chomp
     # assert_equal "hello perl\nhello ruby\nhello python3\nhello lua", File.read("test.txt").chomp
     assert_match "+gettext", shell_output("#{bin}/evi --version")
     assert_match "+sodium", shell_output("#{bin}/evi --version")
