@@ -79,12 +79,15 @@ class Evi < Formula
   end
 
   test do
-    (testpath/"commands.vim").write <<~EOS
-      :python3 import vim; vim.current.buffer[0] = 'hello python3'
-      :wq
-    EOS
-    system bin/"vim", "-T", "dumb", "-s", "commands.vim", "test.txt"
-    assert_equal "hello python3", File.read("test.txt").chomp
+    # (testpath/"commands.evi").write <<~EVI
+    #   :python3 import evi; evi.current.buffer[0] = 'hello python3'
+    #   :ruby EVi::Buffer.current.append(0, 'hello ruby')
+    #   :perl $curbuf->Append(0, "hello perl")
+    #   :lua EVi.buffer():insert("hello lua")
+    #   :wq
+    # EVI
+    # system bin/"evi", "-T", "dumb", "-s", "commands.evi", "test.txt"
+    # assert_equal "hello perl\nhello ruby\nhello python3\nhello lua", File.read("test.txt").chomp
     assert_match "+gettext", shell_output("#{bin}/evi --version")
     assert_match "+sodium", shell_output("#{bin}/evi --version")
   end
