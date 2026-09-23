@@ -59,7 +59,7 @@ class Evi < Formula
                           "--disable-gui",
                           "--without-x",
                           "--enable-luainterp",
-                          "--with-lua-prefix=#{Formula["lua"].opt_prefix}"
+                          "--with-lua-prefix=#{formula_opt_prefix("lua")}"
     system "make"
     # Parallel install could miss some symlinks
     # https://github.com/vim/vim/issues/1031 (predates forking, still applies to EVi)
