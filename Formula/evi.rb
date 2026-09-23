@@ -32,6 +32,7 @@ class Evi < Formula
 
   conflicts_with "ex-vi", because: "EVi and ex-vi both install ex, vi, and view binaries"
   conflicts_with "macvim", because: "EVi and macvim both install ex, vi, and view binaries"
+  conflicts_with "vim", because: "EVi and vim both install ex, vi, and view binaries"
   conflicts_with "vim-classic", because: "EVi and vim-classic both install ex, vi, and view binaries"
 
   def extra_deps = deps.select { |dep| dep.build? && dep.test? }
