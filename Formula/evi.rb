@@ -9,10 +9,10 @@ class Evi < Formula
   head "https://codeberg.org/norwd-forks/evi.git", branch: "master"
 
   livecheck do
-    url "https://codeberg.org/api/v1/repos/norwd-forks/evi/releases/latest"
-    regex(/^v?(\d+(?:\.\d+)+)$/i)
+    url "https://codeberg.org/api/v1/repos/norwd-forks/evi/branches/master"
+    regex(/^[a-fA-F0-9]{40}$/i)
     strategy :json do |json|
-      json["tag_name"]&.[](regex, 1)
+      json["commit"]["id"]&.[](regex, 1)
     end
   end
 
@@ -44,6 +44,9 @@ class Evi < Formula
       extra_rpath = rpath(target: extra_rpath) if OS.mac? # cannot use $ORIGIN
       ENV.append "LDFLAGS", "-Wl,-rpath,#{extra_rpath}"
     end
+
+    # Allow EVi commit sha to be shown with --version
+    ENV.append "CFLAGS", "-DEVI_VERSION_GIT_SHA='\"#{version}\"'"
 
     # We specify HOMEBREW_PREFIX as the prefix to make vim look in the
     # the right place (HOMEBREW_PREFIX/share/vim/{vimrc,vimfiles}) for
