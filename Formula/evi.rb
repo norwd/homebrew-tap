@@ -43,7 +43,7 @@ class Evi < Formula
     end
 
     # Allow EVi commit sha to be shown with --version
-    ENV.append "CFLAGS", "-DEVI_VERSION_GIT_SHA='\"#{shell_output("git rev-parse --short HEAD").strip}\"'"
+    ENV.append "CFLAGS", "-DEVI_VERSION_GIT_SHA='\"#{tap.user}\"'"
 
     # We specify HOMEBREW_PREFIX as the prefix to make vim look in the
     # the right place (HOMEBREW_PREFIX/share/vim/{vimrc,vimfiles}) for
