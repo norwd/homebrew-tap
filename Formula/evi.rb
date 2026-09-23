@@ -1,20 +1,20 @@
 class Evi < Formula
   desc "Vi 'workalike' with many additional features"
   homepage "https://evi-editor.codeberg.page"
-  url "https://codeberg.org/norwd-forks/evi/archive/v10.0.0.tar.gz"
-  sha256 "a5d4c10b29d1f933d8d2f889fca25334372a231be8612add872ecc8ac017b578"
+  # url "https://codeberg.org/norwd-forks/evi/archive/v10.0.0.tar.gz"
+  # sha256 "a5d4c10b29d1f933d8d2f889fca25334372a231be8612add872ecc8ac017b578"
   license "GPL-3.0-or-later"
   version_scheme 1
   compatibility_version 1
   head "https://codeberg.org/norwd-forks/evi.git", branch: "master"
 
-  livecheck do
-    url "https://codeberg.org/api/v1/repos/norwd-forks/evi/releases/latest"
-    regex(/^v?(\d+(?:\.\d+)+)$/i)
-    strategy :json do |json|
-      json["tag_name"]&.[](regex, 1)
-    end
-  end
+  # livecheck do
+  #   url "https://codeberg.org/api/v1/repos/norwd-forks/evi/releases/latest"
+  #   regex(/^v?(\d+(?:\.\d+)+)$/i)
+  #   strategy :json do |json|
+  #     json["tag_name"]&.[](regex, 1)
+  #   end
+  # end
 
   depends_on "lua" => [:build, :test]
   # depe___nds_on "python@3.14" => [:build, :test]
