@@ -23,11 +23,11 @@ class Evi < Formula
   depends_on "libsodium"
   depends_on "ncurses"
 
+  uses_from_macos "perl" => [:build, :test]
+
   on_linux do
     depends_on "acl"
   end
-
-  uses_from_macos "perl" => [:build, :test]
 
   conflicts_with "ex-vi", because: "EVi and ex-vi both install ex, vi, and view binaries"
   conflicts_with "macvim", because: "EVi and macvim both install ex, vi, and view binaries"
