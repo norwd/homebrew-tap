@@ -1,7 +1,7 @@
 class Evi < Formula
   desc "Vi 'workalike' with many additional features"
   homepage "https://evi-editor.codeberg.page"
-  url "https://codeberg.org/norwd-forks/evi.git"
+  url "https://codeberg.org/norwd-forks/evi.git",
       tag:      "v10.0.0",
       revision: "36a260062afe319404598121187f5bb94c3f7e08"
   sha256 "a5d4c10b29d1f933d8d2f889fca25334372a231be8612add872ecc8ac017b578"
