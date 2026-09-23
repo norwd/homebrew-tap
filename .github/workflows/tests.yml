@@ -43,14 +43,14 @@ jobs:
           key: ${{ matrix.os }}-rubygems-${{ steps.set-up-homebrew.outputs.gems-hash }}
           restore-keys: ${{ matrix.os }}-rubygems-
 
-      - run: brew test-bot --fail-fast --only-cleanup-before
+      - run: brew test-bot --fail-fast --only-cleanup-before --verbose
 
-      - run: brew test-bot --fail-fast --only-setup
+      - run: brew test-bot --fail-fast --only-setup --verbose
 
-      - run: brew test-bot --fail-fast --only-tap-syntax
+      - run: brew test-bot --fail-fast --only-tap-syntax --verbose
 
       - if: github.event_name == 'pull_request'
-        run: brew test-bot --fail-fast --only-formulae
+        run: brew test-bot --fail-fast --only-formulae --verbose
 
       - if: always() && github.event_name == 'pull_request'
         name: Upload bottles as artifact
