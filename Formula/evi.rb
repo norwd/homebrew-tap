@@ -4,7 +4,7 @@ class Evi < Formula
   url "https://codeberg.org/norwd-forks/evi.git",
       tag:      "v10.0.0",
       revision: "36a260062afe319404598121187f5bb94c3f7e08"
-  sha256 "a5d4c10b29d1f933d8d2f889fca25334372a231be8612add872ecc8ac017b578"
+  # sha256 "a5d4c10b29d1f933d8d2f889fca25334372a231be8612add872ecc8ac017b578"
   license "GPL-3.0-or-later"
   version_scheme 1
   compatibility_version 1
