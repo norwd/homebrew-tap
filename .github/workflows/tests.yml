@@ -50,7 +50,7 @@ jobs:
       - run: brew test-bot --fail-fast --only-tap-syntax
 
       - if: github.event_name == 'pull_request'
-        run: brew test-bot --fail-fast --only-formulae
+        run: brew test-bot --fail-fast --only-formulae --HEAD
 
       - if: always() && github.event_name == 'pull_request'
         name: Upload bottles as artifact
