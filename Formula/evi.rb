@@ -14,7 +14,7 @@ class Evi < Formula
     url "https://codeberg.org/api/v1/repos/norwd-forks/evi/branches/master"
     regex(/^[a-fA-F0-9]{40}$/i)
     strategy :json do |json|
-      json["commit"]["id"]&.[](regex, 1)
+      json["commit"]["id"](regex, 1)
     end
   end
 
