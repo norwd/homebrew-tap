@@ -20,12 +20,15 @@ class Evi < Formula
   depends_on "lua" => [:build, :test]
   # depe___nds_on "python@3.14" => [:build, :test]
   # depe___nds_on "ruby@3.2" => [:build, :test]
-  depends_on "acl"
   depends_on "gettext"
   depends_on "libsodium"
   depends_on "ncurses"
 
   uses_from_macos "perl" => [:build, :test]
+
+  on_linux do
+    depends_on "acl"
+  end
 
   conflicts_with "ex-vi", because: "EVi and ex-vi both install ex, vi, and view binaries"
   conflicts_with "macvim", because: "EVi and macvim both install ex, vi, and view binaries"
