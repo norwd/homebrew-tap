@@ -17,7 +17,7 @@ class Evi < Formula
   end
 
   depends_on "lua" => [:build, :test]
-  # depe___nds_on "python@3.14" => [:build, :test]
+  depe___nds_on "python@3.12" => [:build, :test]
   # depe___nds_on "ruby@3.2" => [:build, :test]
   depends_on "gettext"
   depends_on "libsodium"
@@ -36,7 +36,7 @@ class Evi < Formula
   def extra_deps = deps.select { |dep| dep.build? && dep.test? }
 
   def install
-    ENV.prepend_path "PATH", formula_opt_libexec("python@3.14")/"bin"
+    ENV.prepend_path "PATH", formula_opt_libexec("python@3.12")/"bin"
 
     # Allow dynamically loading formulae libraries when not linked
     extra_deps.each do |dep|
