@@ -8,13 +8,13 @@ class Evi < Formula
   compatibility_version 1
   head "https://codeberg.org/norwd-forks/evi.git", branch: "master"
 
-  livecheck do
-    url "https://codeberg.org/api/v1/repos/norwd-forks/evi/releases/latest"
-    regex(/^v?(\d+(?:\.\d+)+)$/i)
-    strategy :json do |json|
-      json["tag_name"]&.[](regex, 1)
-    end
-  end
+  # livecheck do
+  #   url "https://codeberg.org/api/v1/repos/norwd-forks/evi/releases/latest"
+  #   regex(/^v?(\d+(?:\.\d+)+)$/i)
+  #   strategy :json do |json|
+  #     json["tag_name"]&.[](regex, 1)
+  #   end
+  # end
 
   depends_on "lua" => [:build, :test]
   # depe___nds_on "python@3.14" => [:build, :test]
