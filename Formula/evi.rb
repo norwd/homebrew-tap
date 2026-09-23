@@ -1,8 +1,10 @@
 class Evi < Formula
   desc "Vi 'workalike' with many additional features"
   homepage "https://evi-editor.codeberg.page"
-  url "https://codeberg.org/norwd-forks/evi/archive/v10.0.0.tar.gz"
-  sha256 "a5d4c10b29d1f933d8d2f889fca25334372a231be8612add872ecc8ac017b578"
+  url "https://codeberg.org/norwd-forks/evi.git",
+      tag:      "v10.0.0",
+      revision: "36a260062afe319404598121187f5bb94c3f7e08"
+  # sha256 "a5d4c10b29d1f933d8d2f889fca25334372a231be8612add872ecc8ac017b578"
   license "GPL-3.0-or-later"
   version_scheme 1
   compatibility_version 1
@@ -10,9 +12,8 @@ class Evi < Formula
 
   livecheck do
     url "https://codeberg.org/api/v1/repos/norwd-forks/evi/branches/master"
-    regex(/^[a-fA-F0-9]{40}$/i)
     strategy :json do |json|
-      json["commit"]["id"]&.[](regex, 1)
+      json["commit"]["id"]
     end
   end
 
@@ -43,7 +44,7 @@ class Evi < Formula
     end
 
     # Allow EVi commit sha to be shown with --version
-    # ENV.append "CFLAGS", "-DEVI_VERSION_GIT_SHA='\"#{version}\"'"
+    ENV.append "CFLAGS", "-DEVI_VERSION_GIT_SHA='\"#{Utils.git_head}\"'"
 
     # We specify HOMEBREW_PREFIX as the prefix to make vim look in the
     # the right place (HOMEBREW_PREFIX/share/vim/{vimrc,vimfiles}) for
