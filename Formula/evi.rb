@@ -19,7 +19,7 @@ class Evi < Formula
 
   depends_on "lua" => [:build, :test]
   # depe___nds_on "python@3.14" => [:build, :test]
-  # depe___nds_on "ruby@3.2" => [:build, :test]
+  depends_on "ruby@3.2" => [:build, :test]
   depends_on "gettext"
   depends_on "libsodium"
   depends_on "ncurses"
@@ -63,7 +63,7 @@ class Evi < Formula
                           "--enable-terminal",
                           "--enable-perlinterp#{"=dynamic" unless OS.mac?}",
                           # "--enable-python3interp=dynamic",
-                          # "--enable-rubyinterp=dynamic",
+                          "--enable-rubyinterp=dynamic",
                           "--disable-gui",
                           "--without-x",
                           "--enable-luainterp=dynamic",
@@ -82,6 +82,14 @@ class Evi < Formula
   end
 
   test do
+    (testpath/"commands.evi").write <<~TEST_EVI_RUBY
+      :ruby EVi::Buffer.current.append(0, 'hello ruby')
+      :wq
+    TEST_EVI_RUBY
+    system bin/"evi", "-T", "dumb", "-s", "commands.evi", "test-evi-ruby.txt"
+    assert_equal "hello ruby\n", File.read("test-evi-ruby.txt").chomp
+    assert_match "+ruby/dyn", shell_output("#{bin}/evi --version")
+
     # (testpath/"commands.evi").write <<~EVI
     #   :python3 import evi; evi.current.buffer[0] = 'hello python3'
     #   :ruby EVi::Buffer.current.append(0, 'hello ruby')
