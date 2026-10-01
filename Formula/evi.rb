@@ -8,7 +8,8 @@ class Evi < Formula
   license "GPL-3.0-or-later"
   version_scheme 1
   compatibility_version 1
-  head "https://codeberg.org/norwd-forks/evi.git", branch: "fix/evi-editor/evi#203/error-undefined-reference-to-rb_check_typeddata"
+  head "https://codeberg.org/norwd-forks/evi.git",
+      branch: "fix/evi-editor/evi#203/error-undefined-reference-to-rb_check_typeddata"
 
   livecheck do
     url "https://codeberg.org/api/v1/repos/norwd-forks/evi/branches/fix/evi-editor/evi#203/error-undefined-reference-to-rb_check_typeddata"
