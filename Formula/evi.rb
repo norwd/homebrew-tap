@@ -83,7 +83,7 @@ class Evi < Formula
 
   test do
     (testpath/"commands.evi").write <<~TEST_EVI_RUBY
-      :ruby EVi::Buffer.current.append(0, 'hello ruby')
+      :ruby Vim::Buffer.current.append(0, 'hello ruby')
       :wq
     TEST_EVI_RUBY
     system bin/"evi", "-T", "dumb", "-s", "commands.evi", "test-evi-ruby.txt"
