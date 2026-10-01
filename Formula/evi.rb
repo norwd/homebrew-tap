@@ -88,7 +88,7 @@ class Evi < Formula
       :wq
     EVI
     system bin/"evi", "-T", "dumb", "-s", "commands.evi", "test.txt"
-    assert_equal "hello ruby", File.read("test.txt").chomp
+    assert_equal "hello ruby\n", File.read("test.txt").chomp
     assert_match "+gettext", shell_output("#{bin}/evi --version")
     assert_match "+sodium", shell_output("#{bin}/evi --version")
   end
