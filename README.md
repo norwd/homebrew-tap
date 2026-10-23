@@ -2,6 +2,10 @@
 
 [![Hippocratic License HL3-CL-ECO-LAW-MIL-SV](https://img.shields.io/static/v1?label=Hippocratic%20License&message=HL3-CL-ECO-LAW-MIL-SV&labelColor=5e2751&color=bc8c3d)](https://firstdonoharm.dev/version/3/0/cl-eco-law-mil-sv.html)
 
+## I'm here for EVi?
+
+Go to https://codeberg.org/norwd/homebrew-tap instead, but leave a star so I know you were here :)
+
 ## How do I install these formulae?
 
 `brew install norwd/tap/<formula>`
