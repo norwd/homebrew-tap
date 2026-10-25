@@ -85,7 +85,7 @@ class Evi < Formula
       :ruby Vim::Buffer.current.append(0, 'hello ruby')
       :wq
     EOF
-    system bin/"evi", "-T", "dumb", "-s", "commands_ruby.evi", "test_ruby.txt"
+    system bin/"evi", "-T", "dumb", "-s", "commands_ruby.vim", "test_ruby.txt"
     assert_equal "hello ruby", File.read("test_ruby.txt").chomp
     # (testpath/"commands.evi").write <<~EVI
     #   :python3 import evi; evi.current.buffer[0] = 'hello python3'
