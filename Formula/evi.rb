@@ -18,7 +18,7 @@ class Evi < Formula
 
   depends_on "lua" => [:build, :test]
   # depe___nds_on "python@3.14" => [:build, :test]
-  # depe___nds_on "ruby@3.2" => [:build, :test]
+  depends_on "ruby" => [:build, :test]
   depends_on "gettext"
   depends_on "libsodium"
   depends_on "ncurses"
@@ -62,7 +62,7 @@ class Evi < Formula
                           "--enable-terminal",
                           "--enable-perlinterp#{"=dynamic" unless OS.mac?}",
                           # "--enable-python3interp=dynamic",
-                          # "--enable-rubyinterp=dynamic",
+                          "--enable-rubyinterp=dynamic",
                           "--disable-gui",
                           "--without-x",
                           "--enable-luainterp=dynamic",
@@ -81,15 +81,20 @@ class Evi < Formula
   end
 
   test do
+    (testpath/"commands_ruby.vim").write <<~EOF
+      :ruby Vim::Buffer.current.append(0, 'hello ruby')
+      :wq
+    EOF
+    system bin/"evi", "-T", "dumb", "-s", "commands_ruby.evi", "test_ruby.txt"
+    assert_equal "hello ruby", File.read("test_ruby.txt").chomp
     # (testpath/"commands.evi").write <<~EVI
     #   :python3 import evi; evi.current.buffer[0] = 'hello python3'
-    #   :ruby EVi::Buffer.current.append(0, 'hello ruby')
     #   :perl $curbuf->Append(0, "hello perl")
     #   :lua EVi.buffer():insert("hello lua")
     #   :wq
     # EVI
     # system bin/"evi", "-T", "dumb", "-s", "commands.evi", "test.txt"
-    # assert_equal "hello perl\nhello ruby\nhello python3\nhello lua", File.read("test.txt").chomp
+    # assert_equal "hello perl\nhello python3\nhello lua", File.read("test.txt").chomp
     assert_match "+gettext", shell_output("#{bin}/evi --version")
     assert_match "+sodium", shell_output("#{bin}/evi --version")
   end
