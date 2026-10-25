@@ -4,7 +4,6 @@ class Evi < Formula
   url "https://codeberg.org/evi-editor/evi.git",
       tag:      "evi10.0-preview-0",
       revision: "ccf19a418f2d46a8f628d25336077b4611fd58e7"
-  sha256 ""
   license "GPL-3.0-or-later"
   version_scheme 2
   compatibility_version 1
