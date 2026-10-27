@@ -18,7 +18,7 @@ class Evi < Formula
 
   depends_on "lua" => [:build, :test]
   # depe___nds_on "python@3.14" => [:build, :test]
-  depends_on "ruby@3.3" => [:build, :test] # v3.3.8 is the last version of ruby with 
+  depends_on "ruby@3.3" => [:build, :test] # v3.3.8 is the last version of ruby with no ai
   depends_on "gettext"
   depends_on "libsodium"
   depends_on "ncurses"
