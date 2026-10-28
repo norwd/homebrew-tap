@@ -98,7 +98,7 @@ class Evi < Formula
     assert_match "+perl", shell_output("#{bin}/evi --version")
 
     (testpath/"commands-lua.evi").write <<~TEST_EVI_LUA
-      :lua EVi.buffer():insert("hello lua")
+      :lua Vim.buffer():insert("hello lua")
       :wq
     TEST_EVI_LUA
     system bin/"evi", "-T", "dumb", "-s", "commands-lua.evi", "test-evi-lua.txt"
