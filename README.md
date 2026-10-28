@@ -4,7 +4,7 @@
 
 ## I'm here for EVi?
 
-Go to https://codeberg.org/norwd/homebrew-tap instead, but leave a star so I know you were here :)
+Go to https://codeberg.org/evi-editor/evi-package-homebrew instead, but leave a star so I know you were here :)
 
 ## How do I install these formulae?
 
