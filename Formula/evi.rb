@@ -81,18 +81,24 @@ class Evi < Formula
   end
 
   test do
-    (testpath/"commands.evi").write <<~TEST_EVI_RUBY
+    (testpath/"commands-ruby.evi").write <<~TEST_EVI_RUBY
       :ruby Vim::Buffer.current.append(0, 'hello ruby')
       :wq
     TEST_EVI_RUBY
-    system bin/"evi", "-T", "dumb", "-s", "commands.evi", "test-evi-ruby.txt"
+    system bin/"evi", "-T", "dumb", "-s", "commands-ruby.evi", "test-evi-ruby.txt"
     assert_equal "hello ruby\n", File.read("test-evi-ruby.txt").chomp
     assert_match "+ruby/dyn", shell_output("#{bin}/evi --version")
 
+    (testpath/"commands-perl.evi").write <<~TEST_EVI_PERL
+      :perl $curbuf->Append(0, "hello perl")
+      :wq
+    TEST_EVI_PERL
+    system bin/"evi", "-T", "dumb", "-s", "commands-perl.evi", "test-evi-perl.txt"
+    assert_equal "hello perl\n", File.read("test-evi-perl.txt").chomp
+    assert_match "+perl", shell_output("#{bin}/evi --version")
+
     # (testpath/"commands.evi").write <<~EVI
     #   :python3 import evi; evi.current.buffer[0] = 'hello python3'
-    #   :ruby EVi::Buffer.current.append(0, 'hello ruby')
-    #   :perl $curbuf->Append(0, "hello perl")
     #   :lua EVi.buffer():insert("hello lua")
     #   :wq
     # EVI
