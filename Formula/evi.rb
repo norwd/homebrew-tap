@@ -97,13 +97,21 @@ class Evi < Formula
     assert_equal "hello perl\n", File.read("test-evi-perl.txt").chomp
     assert_match "+perl", shell_output("#{bin}/evi --version")
 
-    # (testpath/"commands.evi").write <<~EVI
+    (testpath/"commands-lua.evi").write <<~TEST_EVI_LUA
+      :lua Vim.buffer():insert("hello lua")
+      :wq
+    TEST_EVI_LUA
+    system bin/"evi", "-T", "dumb", "-s", "commands-lua.evi", "test-evi-lua.txt"
+    assert_equal "hello lua\n", File.read("test-evi-lua.txt").chomp
+    assert_match "+lua", shell_output("#{bin}/evi --version")
+
+    # (testpath/"commands-python3.evi").write <<~TEST_EVI_PYTHON3
     #   :python3 import evi; evi.current.buffer[0] = 'hello python3'
-    #   :lua EVi.buffer():insert("hello lua")
     #   :wq
-    # EVI
-    # system bin/"evi", "-T", "dumb", "-s", "commands.evi", "test.txt"
-    # assert_equal "hello perl\nhello ruby\nhello python3\nhello lua", File.read("test.txt").chomp
+    # TEST_EVI_PYTHON3
+    # system bin/"evi", "-T", "dumb", "-s", "commands-python3.evi", "test-evi-python3.txt"
+    # assert_equal "hello python3\n", File.read("test-evi-python3.txt").chomp
+    # assert_match "+python3", shell_output("#{bin}/evi --version")
     assert_match "+gettext", shell_output("#{bin}/evi --version")
     assert_match "+sodium", shell_output("#{bin}/evi --version")
   end
