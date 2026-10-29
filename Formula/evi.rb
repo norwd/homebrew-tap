@@ -16,14 +16,11 @@ class Evi < Formula
     end
   end
 
-  option "without-lua", "Build without Lua support"
   option "without-perl", "Build without Perl support"
-  option "without-python3", "Build without Python3 support"
-  option "without-ruby", "Build without Ruby support"
 
-  depends_on "lua" => [:build, :test]
-  # depe___nds_on "python@3.14" => [:build, :test]
-  depends_on "ruby@3.2" => [:build, :test]
+  depends_on "lua" => [:build, :test, :recommended]
+  # depe___nds_on "python@3.14" => [:build, :test, :recommended]
+  depends_on "ruby@3.2" => [:build, :test, :recommended]
   depends_on "gettext"
   depends_on "libsodium"
   depends_on "ncurses"
