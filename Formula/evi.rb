@@ -20,7 +20,7 @@ class Evi < Formula
   option "without-perl", "Build without Perl support"
   option "without-python3", "Build without Python3 support"
   option "without-ruby", "Build without Ruby support"
-  
+
   depends_on "lua" => [:build, :test]
   # depe___nds_on "python@3.14" => [:build, :test]
   depends_on "ruby@3.2" => [:build, :test]
