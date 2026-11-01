@@ -18,7 +18,7 @@ class Evi < Formula
 
   depends_on "lua" => [:build, :test]
   # depe___nds_on "python@3.14" => [:build, :test]
-  depends_on "ruby@3.2" => [:build, :test]
+  depends_on "ruby" => [:build, :test]
   depends_on "gettext"
   depends_on "libsodium"
   depends_on "ncurses"
@@ -82,6 +82,7 @@ class Evi < Formula
 
   test do
     (testpath/"commands-ruby.evi").write <<~TEST_EVI_RUBY
+      :set rubydll=#{HOMEBREW_PREFIX}/lib/libruby.so
       :ruby Vim::Buffer.current.append(0, 'hello ruby')
       :wq
     TEST_EVI_RUBY
