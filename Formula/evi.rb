@@ -82,7 +82,7 @@ class Evi < Formula
 
   test do
     (testpath/"commands-ruby.evi").write <<~TEST_EVI_RUBY
-      :set rubydll=#{lib/"ruby"}/libruby.so
+      :set rubydll=#{HOMEBREW_PREFIX}/lib/libruby.so
       :ruby Vim::Buffer.current.append(0, 'hello ruby')
       :wq
     TEST_EVI_RUBY
