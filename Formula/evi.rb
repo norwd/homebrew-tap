@@ -51,15 +51,18 @@ class Evi < Formula
     # the right place (HOMEBREW_PREFIX/share/vim/{vimrc,vimfiles}) for
     # system vimscript files. We specify the normal installation prefix
     # when calling "make install".
-    system "./configure", "--prefix=#{HOMEBREW_PREFIX}",
-                          "--mandir=#{man}",
-                          "--enable-multibyte",
-                          "--with-tlib=ncurses",
-                          "--enable-cscope",
-                          "--enable-terminal",
-                          "--disable-gui",
-                          "--without-x",
-                          "--with-compiledby=Homebrew" # Keep this last
+    args = %W[
+      --prefix=#{HOMEBREW_PREFIX}
+      --mandir=#{man}
+      --enable-multibyte
+      --with-tlib=ncurses
+      --enable-cscope
+      --enable-terminal
+      --disable-gui
+      --without-x
+      --with-compiledby=Homebrew
+    ]
+    system "./configure", *args
     system "make"
     # Parallel install could miss some symlinks
     # https://github.com/vim/vim/issues/1031 (predates forking, still applies to EVi)
