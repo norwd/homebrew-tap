@@ -68,7 +68,7 @@ class Evi < Formula
       args << "--enable-luainterp=dynamic"
       args << "--with-lua-prefix=#{formula_opt_prefix("lua")}"
     end
-    
+
     system "./configure", *args
     system "make"
     # Parallel install could miss some symlinks
