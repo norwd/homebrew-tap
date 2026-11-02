@@ -19,6 +19,7 @@ class Evi < Formula
   depends_on "gettext"
   depends_on "libsodium"
   depends_on "ncurses"
+  depends_on "lua" => :optional
 
   uses_from_macos "perl" => [:build, :test]
 
@@ -62,6 +63,12 @@ class Evi < Formula
       --without-x
       --with-compiledby=Homebrew
     ]
+
+    if build.with? "lua"
+      args << "--enable-luainterp=dynamic"
+      args << "--with-lua-prefix=#{formula_opt_prefix("lua")}"
+    end
+
     system "./configure", *args
     system "make"
     # Parallel install could miss some symlinks
@@ -78,5 +85,11 @@ class Evi < Formula
   test do
     assert_match "+gettext", shell_output("#{bin}/evi --version")
     assert_match "+sodium", shell_output("#{bin}/evi --version")
+
+    if build.with? "lua"
+      assert_match "+lua", shell_output("#{bin}/evi --version")
+    else
+      assert_match "-lua", shell_output("#{bin}/evi --version")
+    end
   end
 end
