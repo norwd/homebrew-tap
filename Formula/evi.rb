@@ -16,10 +16,10 @@ class Evi < Formula
     end
   end
 
-  depends_on "lua" => :optional
   depends_on "gettext"
   depends_on "libsodium"
   depends_on "ncurses"
+  depends_on "lua" => :optional
 
   uses_from_macos "perl" => [:build, :test]
 
