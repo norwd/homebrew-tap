@@ -16,9 +16,6 @@ class Evi < Formula
     end
   end
 
-  depends_on "lua" => [:build, :test]
-  # depe___nds_on "python@3.14" => [:build, :test]
-  depends_on "ruby@3.2" => [:build, :test]
   depends_on "gettext"
   depends_on "libsodium"
   depends_on "ncurses"
@@ -60,13 +57,8 @@ class Evi < Formula
                           "--with-tlib=ncurses",
                           "--enable-cscope",
                           "--enable-terminal",
-                          "--enable-perlinterp#{"=dynamic" unless OS.mac?}",
-                          # "--enable-python3interp=dynamic",
-                          "--enable-rubyinterp=dynamic",
                           "--disable-gui",
                           "--without-x",
-                          "--enable-luainterp=dynamic",
-                          "--with-lua-prefix=#{formula_opt_prefix("lua")}",
                           "--with-compiledby=Homebrew" # Keep this last
     system "make"
     # Parallel install could miss some symlinks
@@ -81,29 +73,6 @@ class Evi < Formula
   end
 
   test do
-    (testpath/"commands-ruby.evi").write <<~TEST_EVI_RUBY
-      :ruby Vim::Buffer.current.append(0, 'hello ruby')
-      :wq
-    TEST_EVI_RUBY
-    system bin/"evi", "-T", "dumb", "-s", "commands-ruby.evi", "test-evi-ruby.txt"
-    assert_equal "hello ruby\n", File.read("test-evi-ruby.txt").chomp
-    assert_match "+ruby/dyn", shell_output("#{bin}/evi --version")
-
-    (testpath/"commands-perl.evi").write <<~TEST_EVI_PERL
-      :perl $curbuf->Append(0, "hello perl")
-      :wq
-    TEST_EVI_PERL
-    system bin/"evi", "-T", "dumb", "-s", "commands-perl.evi", "test-evi-perl.txt"
-    assert_equal "hello perl\n", File.read("test-evi-perl.txt").chomp
-    assert_match "+perl", shell_output("#{bin}/evi --version")
-
-    # (testpath/"commands.evi").write <<~EVI
-    #   :python3 import evi; evi.current.buffer[0] = 'hello python3'
-    #   :lua EVi.buffer():insert("hello lua")
-    #   :wq
-    # EVI
-    # system bin/"evi", "-T", "dumb", "-s", "commands.evi", "test.txt"
-    # assert_equal "hello perl\nhello ruby\nhello python3\nhello lua", File.read("test.txt").chomp
     assert_match "+gettext", shell_output("#{bin}/evi --version")
     assert_match "+sodium", shell_output("#{bin}/evi --version")
   end
